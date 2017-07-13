@@ -1,0 +1,11 @@
+#Database
+database.db
+
+#Files uploaded
+files/*
+
+#Python cache files
+__pycache__
+
+#Pycharm files
+.idea

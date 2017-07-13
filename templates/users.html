@@ -1,0 +1,16 @@
+{% extends 'base/base.html' %}
+
+{% block article %}
+    <div class="card">
+        <h4 class="card-header">Liste des utilisateurs</h4>
+        <div class="card-block">
+            {% for user in users %}
+                <div>
+                    <p>{{ user.name }} {% if user.grade == 4 %}(Administrateur){% else %}[<a href="">Supprimer</a>]{% endif %}</p>
+                </div>
+            {% else %}
+                <p>Il n'existe aucun utilisateur</p>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

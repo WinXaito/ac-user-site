@@ -1,0 +1,53 @@
+*{
+    margin:0;
+    padding:0;
+}
+a{
+    color:#505050;
+    text-decoration:none;
+}
+a:hover{
+    color:black;
+    text-decoration: underline;
+}
+body{
+}
+header{
+    background-color:orange;
+    padding:10px;
+    font-family: Calibri,Candara,Segoe,Segoe UI,Optima,Arial,sans-serif;
+    border-bottom:3px solid #505050;
+}
+#header-left, #header-right{
+    display:inline-block;
+}
+#header-right{
+    float:right
+}
+#header-content{
+    max-width:1000px;
+    margin:auto;
+}
+header h1 a, header h1 a:hover{
+    color:#505050;
+}
+header h2{
+    font-size: 1em;
+    color:white;
+    font-weight: bold;
+}
+.sidebar{
+    padding:20px;
+}
+.container{
+    width:800px;
+}
+.recentlink{
+    margin:5px;
+}
+.card{
+    margin:10px 0;
+}
+.nav-link.active{
+    background-color:orange !important;
+}

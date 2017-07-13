@@ -1,0 +1,22 @@
+{% extends 'base/base.html' %}
+
+{% block article %}
+    <div class="card">
+        <h4 class="card-header">Ajout d'un utilisateur</h4>
+        <div class="card-block">
+            <form method="POST" action="/config/adduser">
+                <div class="form-group">
+                    <label for="input-username">Nom d'utilisateur</label>
+                    <input type="text" id="input-username" name="username" class="form-control"/>
+                </div>
+                <div class="form-group">
+                    <label for="input-password">Mot de passe</label>
+                    <input type="password" id="input-password" name="password" class="form-control"/>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Enregistrer" class="btn btn-secondary"/>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}
