@@ -1,4 +1,4 @@
-from flask import g
+from flask import g, current_app as app
 from os import path as ospath
 import sqlite3
 
@@ -36,3 +36,27 @@ def insert(table, fields=(), values=()):
     id = cur.lastrowid
     cur.close()
     return id
+
+
+def delete(table, where, value):
+    cur = get_db().cursor()
+    query = 'DELETE FROM %s WHERE %s = %s' % (
+        table,
+        where,
+        value
+    )
+    cur.execute(query)
+    get_db().commit()
+
+
+
+def init_db():
+    print('Initialisation de la base de données')
+    open(DATABASE, 'a').close()
+
+    with app.app_context():
+        db = get_db()
+        with app.open_resource('schema.sql', mode='r') as f:
+            db.cursor().executescript(f.read())
+            print('Schema')
+        db.commit()

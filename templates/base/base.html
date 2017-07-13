@@ -13,11 +13,15 @@
         <div class="row">
             <section class="col-12">
                 <div class="row">
-                    {% include 'base/navigation.html' %}
+                    {% block navigation %}
+                        {% include 'base/navigation.html' %}
+                    {% endblock %}
 
-                    <article class="col-9">
-                        {% block article %}{% endblock %}
-                    </article>
+                    {% block article_outside %}
+                        <article class="col-9">
+                            {% block article %}{% endblock %}
+                        </article>
+                    {% endblock %}
                 </div>
             </section>
         </div>

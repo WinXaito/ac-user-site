@@ -2,11 +2,11 @@
 
 {% block article %}
     <div class="card">
-        <h4 class="card-header">Liste des utilisateurs</h4>
+        <h4 class="card-header">Liste des utilisateurs {% if session.grade == 4 %}<small><a href="/config">Ajouter un utilisateur</a></small>{% endif %}</h4>
         <div class="card-block">
             {% for user in users %}
                 <div>
-                    <p>{{ user.name }} {% if user.grade == 4 %}(Administrateur){% else %}[<a href="">Supprimer</a>]{% endif %}</p>
+                    <p>{{ user.name }} {% if user.grade == 4 %}(Administrateur){% else %}[<a href="/user/remove/{{ user.id }}">Supprimer</a>]{% endif %}</p>
                 </div>
             {% else %}
                 <p>Il n'existe aucun utilisateur</p>

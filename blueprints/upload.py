@@ -1,7 +1,8 @@
-from flask import Blueprint, render_template, request, redirect, session, current_app as app
+from flask import Blueprint, render_template, request, redirect, session, url_for
 from time import time
 from utils.functions import uniqid
 from utils.db import insert
+from utils.decorators import login_required
 import imghdr
 import os
 
@@ -11,13 +12,14 @@ APP_ROOT = os.path.dirname(__file__)
 
 
 @upload.route("/upload", methods=['POST'])
+@login_required
 def upload_view():
     if session['logged'] and request.files is not None:
         data_upload = upload_file(request.files, session['id'], 'web')
         if data_upload['status'] != 'ok':
             return render_template('error.html', error_code=1000, error_content=data_upload['error'])
         else:
-            return redirect('/')
+            return redirect(url_for('home'))
     else:
         return render_template('error.html', error_code=1000, error_content="error:params")
 

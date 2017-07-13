@@ -1,26 +1,57 @@
-from flask import Flask, render_template, request, send_file, redirect, session, g, Blueprint
+from flask import Flask, render_template, request, redirect, session, g, url_for
 from blueprints.install import install
+from blueprints.auth import auth
 from blueprints.config import config
 from blueprints.upload import upload
 from blueprints.users import users
+from blueprints.files import files
 from blueprints.api.auth import api_auth
 from blueprints.api.upload import api_upload
-from utils.db import query_db
+from utils.db import query_db, init_db
+from dynaconf import settings
+from utils.decorators import login_required
 import os
 import utils.functions as func
 
+# Init app
 app = Flask(__name__)
 app.config.from_object('config.DevConfig')
 APP_ROOT = os.path.dirname(__file__)
 
+# Blueprints
 app.register_blueprint(install)
+app.register_blueprint(auth)
 app.register_blueprint(config)
 app.register_blueprint(upload)
+app.register_blueprint(files)
 app.register_blueprint(users)
 app.register_blueprint(api_auth)
 app.register_blueprint(api_upload)
 
+# Filters
 app.add_template_filter(func.basename)
+
+# Database initialisation
+os.environ['DYNACONF_INSTALL'] = '@bool true'
+with app.app_context():
+    if not os.path.isfile('{}/database.db'.format(APP_ROOT)):
+        settings.INSTALL = False
+        init_db()
+    elif len(query_db('SELECT * FROM users', [], False)) < 1:
+        settings.INSTALL = False
+
+
+@app.before_request
+def before_request():
+    no_redirects = {
+        'install.install_view',
+        'install.install_admin',
+        'static'
+    }
+
+    if request.endpoint not in no_redirects:
+        if not settings.INSTALL:
+            return redirect(url_for('install.install_view'))
 
 
 @app.teardown_appcontext
@@ -32,49 +63,15 @@ def close_connection(exception):
 
 
 @app.route('/')
-def hello_world():
-    if 'username' not in session:
-        return render_template('login.html', session=session)
-
+@login_required
+def home():
     page = 0
-    requestPage = request.args.get('p')
-    if requestPage is not None and func.represents_int(requestPage):
-        page = int(requestPage)
+    request_page = request.args.get('p')
+    if request_page is not None and func.represents_int(request_page):
+        page = int(request_page)
 
     files = query_db('SELECT * FROM files WHERE user = ? ORDER BY created_at DESC', [session['id']], False)
     return render_template('index.html', files=files, page=page, session=session, loc='home')
-
-
-@app.route('/login', methods=['POST'])
-def login():
-    username = request.form['username']
-    password = request.form['password']
-
-    if username is not None and password is not None:
-        user = query_db('SELECT * FROM users WHERE name = ? AND password = ?', [username, password], True)
-
-        if user is not None:
-            session['id'] = user['id']
-            session['username'] = user['name']
-            session['password'] = user['password']
-            session['grade'] = user['grade']
-            session['logged'] = True
-            return redirect('/')
-        return 'Login error'
-    else:
-        return 'Login param error'
-
-
-@app.route('/logout')
-def logout():
-    session.clear()
-    return redirect('/')
-
-
-@app.route('/file/<id>')
-@app.route('/file/<id>.png')
-def file(id):
-    return send_file('{}/files/{}.file'.format(APP_ROOT, id), mimetype='image/png')
 
 
 if __name__ == '__main__':
