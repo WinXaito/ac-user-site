@@ -1,3 +1,4 @@
+# coding: utf-8
 from flask import Flask, render_template, request, redirect, session, g, url_for
 from blueprints.install import install
 from blueprints.auth import auth

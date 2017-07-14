@@ -1,3 +1,4 @@
+# coding: utf-8
 from flask import Blueprint, render_template, Markup, current_app as app
 import markdown
 import os

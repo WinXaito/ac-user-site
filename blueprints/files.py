@@ -1,3 +1,4 @@
+# coding: utf-8
 from flask import Blueprint, send_file
 import os
 

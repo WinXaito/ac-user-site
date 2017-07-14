@@ -1,3 +1,4 @@
+# coding: utf-8
 from flask import Blueprint, request, Response
 from werkzeug.security import check_password_hash
 from dicttoxml import dicttoxml

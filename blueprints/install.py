@@ -1,3 +1,4 @@
+# coding: utf-8
 from flask import Blueprint, render_template, redirect, request, url_for
 from blueprints.users import add_user
 from dynaconf import settings

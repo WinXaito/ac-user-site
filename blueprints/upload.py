@@ -1,3 +1,4 @@
+# coding: utf-8
 from flask import Blueprint, render_template, request, redirect, session, url_for
 from time import time
 from utils.functions import uniqid

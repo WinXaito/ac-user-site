@@ -1,3 +1,4 @@
+# coding: utf-8
 from flask import Blueprint, render_template, request, redirect, session, url_for
 from werkzeug.security import check_password_hash
 from utils.db import query_db
