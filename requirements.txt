@@ -1,0 +1,5 @@
+dynaconf==0.4.5
+dicttoxml==1.7.4
+Werkzeug==0.12.1
+Markdown==2.6.8
+Flask==0.12
