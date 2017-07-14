@@ -1,4 +1,5 @@
 from flask import Blueprint, request, Response
+from werkzeug.security import check_password_hash
 from dicttoxml import dicttoxml
 from utils.db import query_db
 from blueprints.upload import upload_file
@@ -15,7 +16,7 @@ def upload_view():
         user = query_db('SELECT * FROM users WHERE name = ?', [request.form['username']], True)
 
         if user is not None:
-            if user['password'] == request.form['password']:
+            if check_password_hash(user['password'], request.form['password']):
                 data_upload = upload_file(request.files, user['id'], 'app')
 
                 if data_upload['status'] == 'ok':

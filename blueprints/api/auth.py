@@ -1,4 +1,5 @@
 from flask import Blueprint, request, Response
+from werkzeug.security import check_password_hash
 from dicttoxml import dicttoxml
 from utils.db import query_db
 
@@ -17,7 +18,7 @@ def auth_view():
         user = query_db('SELECT * FROM users WHERE name = ?', [username], True)
 
         if user is not None:
-            if user['password'] == password:
+            if check_password_hash(user['password'], password):
                 output['status'] = 'ok'
                 output['code'] = '1101'
                 output['message'] = 'Connexion réussi'
