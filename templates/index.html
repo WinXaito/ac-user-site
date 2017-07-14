@@ -19,75 +19,10 @@
         <h4 class="card-header">Fichiers téléchargés sur le serveur</h4>
         <div class="card-block">
             {% for file in files %}
-                {# <p class="recentlink"><a href="/file/{{ file | basename }}">{{ file | basename }}</a></p> #}
                 <p class="recentlink"><a href="/file/{{ file.uniqid }}">{{ file.name }}</a>{% if file.source == 'app' %} (App){% endif %}</p>
             {% else %}
-                <p>Aucun récemment téléchargé sur le serveur</p>
+                <p>Vous n'avez pas encore télécharger de fichier sur le serveur</p>
             {% endfor %}
         </div>
     </div>
 {% endblock %}
-
-{#
-<html lang="fr">
-    <head>
-        <meta charset="UTF-8"/>
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css"
-              integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
-        <link rel="stylesheet" href="/static/css/default.css"/>
-        <title>Autocapture</title>
-    </head>
-    <body>
-        {% include 'header.html' %}
-
-        <section>
-            <article>
-                <div class="card">
-                    <h4 class="card-header">Télécharger une image sur le serveur</h4>
-                    <div class="card-block">
-                        <form method="POST" action="/upload" enctype="multipart/form-data">
-                            <div class="form-group">
-                                <label for="input-token">Token d'authentification</label>
-                                <input type="text" name="token" id="input-token" class="form-control"/>
-                            </div>
-                            <div class="form-group">
-                                <input type="file" name="file" multiple="multiple"/>
-                            </div>
-
-                            <input type="hidden" name="webview" value="webview"/>
-                            <input type="submit" class="btn btn-secondary"/>
-                        </form>
-                    </div>
-                </div>
-
-                <div class="card">
-                    <h4 class="card-header">Fichiers téléchargés sur le serveur</h4>
-                    <div class="card-block">
-                        {% for file in files %}
-                            <p class="recentlink"><a href="/file/{{ file | basename }}">{{ file | basename }}</a></p>
-                        {% else %}
-                            <p>Aucun récemment téléchargé sur le serveur</p>
-                        {% endfor %}
-                        {#
-                        {% if files|length > 10 %}
-                            <nav aria-label="Page navigation example">
-                                <ul class="pagination justify-content-center">
-                                    <li class="page-item disabled">
-                                        <a class="page-link" href="#" tabindex="-1">Previous</a>
-                                    </li>
-                                    {% for r in range(1, (((files|length - (files|length % 2)) / 2)|int) + 2) %}
-                                        <li class="page-item {% if r == page %}active{% endif %}"><a class="page-link" href="?p={{ r }}">{{ (r) }}</a></li>
-                                    {% endfor %}
-                                    <li class="page-item">
-                                        <a class="page-link" href="#">Next</a>
-                                    </li>
-                                </ul>
-                            </nav>
-                        {% endif %}
-
-                    </div>
-                </div>
-            </article>
-        </section>
-    </body>
-</html> #}

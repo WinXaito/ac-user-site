@@ -38,6 +38,11 @@ def insert(table, fields=(), values=()):
     return id
 
 
+def update(query, args=()):
+    cur = get_db().execute(query, args)
+    get_db().commit()
+
+
 def delete(table, where, value):
     cur = get_db().cursor()
     query = 'DELETE FROM %s WHERE %s = %s' % (
@@ -47,7 +52,6 @@ def delete(table, where, value):
     )
     cur.execute(query)
     get_db().commit()
-
 
 
 def init_db():
