@@ -1,0 +1,14 @@
+{% extends 'base/base.html' %}
+
+{% block complement_css %}
+    <link rel="stylesheet" href="https://cdn.rawgit.com/sindresorhus/github-markdown-css/v2.8.0/github-markdown.css"/>
+{% endblock %}
+
+{% block article %}
+    <div class="card">
+        <h4 class="card-header">Aide {{ help_title }}</h4>
+        <article class="card-block markdown-body">
+            {{ help_content }}
+        </article>
+    </div>
+{% endblock %}

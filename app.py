@@ -7,6 +7,7 @@ from blueprints.users import users
 from blueprints.files import files
 from blueprints.api.auth import api_auth
 from blueprints.api.upload import api_upload
+from blueprints.help import help
 from utils.db import query_db, init_db
 from dynaconf import settings
 from utils.decorators import login_required
@@ -27,6 +28,7 @@ app.register_blueprint(files)
 app.register_blueprint(users)
 app.register_blueprint(api_auth)
 app.register_blueprint(api_upload)
+app.register_blueprint(help)
 
 # Filters
 app.add_template_filter(func.basename)
