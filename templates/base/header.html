@@ -1,16 +1,4 @@
 <header>
-    {#<div id="header-content" class="clearfix">
-        <div id="header-left" class="float-left">
-            <h1><a href="/">Auto-capture</a></h1>
-            <h2>Version: {{ version }}</h2>
-        </div>
-        <div>
-            CENTER
-        </div>
-        <div id="header-right" class="float-right align-middle" style="line-height: 70px;">
-            <p style="margin:0" class="display-4">{{ session.username }}</p>
-        </div>
-    </div> #}
     <div id="header-content" class="d-flex justify-content-between bd-highlight">
         <div class="align-self-center p-2 bd-highlight">
             <h1><a href="/">Auto-capture</a></h1>
@@ -20,7 +8,9 @@
 
         </div>
         <div class="align-self-center p-2 bd-highlight">
-            <p style="margin:0">Nom d'utilisateur: {{ session.username }}</p>
+            {% if session.username is defined %}
+                <p style="margin:0">Nom d'utilisateur: {{ session.username }}</p>
+            {% endif %}
         </div>
     </div>
 </header>
