@@ -56,6 +56,11 @@ def before_request():
             return redirect(url_for('install.install_view'))
 
 
+@app.context_processor
+def global_variables():
+    return dict(version=app.config['VERSION'], session=session)
+
+
 @app.teardown_appcontext
 def close_connection(exception):
     db = getattr(g, '_database', None)
