@@ -2,10 +2,15 @@
 
 {% block article %}
     <div class="card">
-        <h4 class="card-header">Erreur</h4>
+        <h4 class="card-header">Erreur {{ error_code }}</h4>
         <div class="card-block">
-            <h3>Code d'erreur: {{ error_code }}</h3>
-            <p>Description de l'erreur: {{ error_content }}</p>
+            <h4>Description de l'erreur</h4>
+            <p>{{ error_content }}</p>
+
+            {% if error_detail %}
+                <h4>Détail de l'erreur (Anglais)</h4>
+                <p>{{ error_detail }}</p>
+            {% endif %}
         </div>
     </div>
 {% endblock %}

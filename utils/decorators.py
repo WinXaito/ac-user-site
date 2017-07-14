@@ -1,4 +1,4 @@
-from flask import session, request, redirect, url_for, render_template
+from flask import session, request, redirect, url_for, abort
 from functools import wraps
 
 
@@ -15,6 +15,6 @@ def admin_required(f):
     @wraps(f)
     def decorated_function(*args, **kwargs):
         if 'logged' not in session or not session['logged'] or session['grade'] != 4:
-            return render_template('error.html', error_code=403, error_content="Vous n'avez pas accès à cette page")
+            abort(403)
         return f(*args, **kwargs)
     return decorated_function

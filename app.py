@@ -64,6 +64,16 @@ def close_connection(exception):
         db.close()
 
 
+@app.errorhandler(403)
+def error_403(e):
+    return render_template('error.html', error_code=403, error_content="Accès refusé", error_detail=e)
+
+
+@app.errorhandler(404)
+def error_404(e):
+    return render_template('error.html', error_code=404, error_content="Page non trouvé", error_detail=e)
+
+
 @app.route('/')
 @login_required
 def home():
