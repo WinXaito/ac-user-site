@@ -35,10 +35,14 @@ app.add_template_filter(func.basename)
 
 # Database initialisation
 os.environ['DYNACONF_INSTALL'] = '@bool true'
+os.environ['DYNACONF_INSTALL_DATABASE'] = '@bool false'
 with app.app_context():
     if not os.path.isfile('{}/database.db'.format(APP_ROOT)):
         settings.INSTALL = False
-        init_db()
+
+        if not settings.INSTALL_DATABASE:
+            init_db()
+            settings.INSTALL_DATABASE = True
     elif len(query_db('SELECT * FROM users', [], False)) < 1:
         settings.INSTALL = False
 
