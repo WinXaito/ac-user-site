@@ -48,9 +48,9 @@ def delete(table, where, value):
     query = 'DELETE FROM %s WHERE %s = %s' % (
         table,
         where,
-        value
+        '?'
     )
-    cur.execute(query)
+    cur.execute(query, [value])
     get_db().commit()
 
 

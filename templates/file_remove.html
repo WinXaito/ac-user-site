@@ -1,0 +1,19 @@
+{% extends 'base/base.html' %}
+
+{% block article %}
+    <div class="card">
+        <h4 class="card-header">Suppression d'un fichier</h4>
+        <div class="card-block">
+            <h4>Fichier: {{ file.name }}</h4>
+            <p>Attention, si vous décidez de supprimer ce fichier, il ne sera plus accessible par son adresse web et
+            sera totalement supprimé du serveur.</p>
+
+            <form method="POST" action="">
+                <div class="form-group">
+                    <input type="submit" class="btn btn-secondary" name="confirm-suppress"
+                           value="Je confirme la suppression"/>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}

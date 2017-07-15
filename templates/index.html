@@ -19,7 +19,8 @@
         <h4 class="card-header">Fichiers téléchargés sur le serveur</h4>
         <div class="card-block">
             {% for file in files %}
-                <p class="recentlink"><a href="/file/{{ file.uniqid }}">{{ file.name }}</a>{% if file.source == 'app' %} (App){% endif %}</p>
+                <p class="recentlink"><a href="/file/{{ file.uniqid }}">{{ file.name }}</a>
+                    {% if file.source == 'app' %} (App){% endif %} [<a href="/file/remove/{{ file.uniqid }}">Supprimer</a>]</p>
             {% else %}
                 <p>Vous n'avez pas encore télécharger de fichier sur le serveur</p>
             {% endfor %}
