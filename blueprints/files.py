@@ -1,7 +1,7 @@
 # coding: utf-8
 from flask import Blueprint, send_file, request, render_template, redirect, session, abort, url_for
 from utils.decorators import login_required
-from utils.db import query_db, delete
+from utils.db import query_db, delete, update
 import os
 
 files = Blueprint('files', __name__)
@@ -11,7 +11,14 @@ APP_ROOT = os.path.dirname(__file__)
 @files.route('/file/<id>')
 @files.route('/file/<id>.png')
 def files_file(id):
-    return send_file('{}/../files/{}.file'.format(APP_ROOT, id), mimetype='image/png')
+    file = query_db('SELECT * FROM files WHERE uniqid = ?', [id], True)
+    path = '{}/../files/{}.file'.format(APP_ROOT, id)
+
+    if file is None or not os.path.isfile(path):
+        return send_file('{}/../static/file/file_error.png'.format(APP_ROOT), mimetype='image/png')
+
+    update('UPDATE files SET view = view + 1 WHERE uniqid = ?', [id])
+    return send_file(path, mimetype='image/png')
 
 
 @files.route('/file/remove/<id>', methods=['GET', 'POST'])

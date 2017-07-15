@@ -36,8 +36,8 @@ def upload_file(files, user_id, source):
             if imghdr.what(f) is not None:
                 insert(
                     'files',
-                    ['name', 'user', 'created_at', 'uniqid', 'source'],
-                    [f.filename, user_id, time(), filename, source]
+                    ['name', 'user', 'created_at', 'uniqid', 'source', 'view'],
+                    [f.filename, user_id, time(), filename, source, 0]
                 )
                 print(target)
                 f.save(target)

@@ -20,7 +20,7 @@
         <div class="card-block">
             {% for file in files %}
                 <p class="recentlink"><a href="/file/{{ file.uniqid }}">{{ file.name }}</a>
-                    {% if file.source == 'app' %} (App){% endif %} [<a href="/file/remove/{{ file.uniqid }}">Supprimer</a>]</p>
+                    {% if file.source == 'app' %} [App]{% endif %} [Vue {{ file.view }} fois] [<a href="/file/remove/{{ file.uniqid }}">Supprimer</a>]</p>
             {% else %}
                 <p>Vous n'avez pas encore télécharger de fichier sur le serveur</p>
             {% endfor %}
