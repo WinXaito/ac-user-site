@@ -74,6 +74,11 @@ def close_connection(exception):
         db.close()
 
 
+@app.errorhandler(400)
+def error_400(e):
+    return render_template('error.html', error_code=400, error_content="Mauvaise requete", error_detail=e)
+
+
 @app.errorhandler(403)
 def error_403(e):
     return render_template('error.html', error_code=403, error_content="Accès refusé", error_detail=e)
